@@ -1,0 +1,169 @@
+! version = 2.0
+
+! sub i'm     = i am
+! sub i'd     = i would
+! sub i've    = i have
+! sub i'll    = i will
+! sub don't   = do not
+! sub isn't   = is not
+! sub you'd   = you would
+! sub you're  = you are
+! sub you've  = you have
+! sub you'll  = you will
+! sub what's  = what is
+! sub whats   = what is
+! sub what're = what are
+! sub what've = what have
+! sub what'll = what will
+! sub who's   = who is
+//! sub have = have a
+
+
+// for replies that need to chage the person
+// do you pick your nose?
+
+! person i am    = you are
+! person you are = i am
+! person i'm     = you're
+! person you're  = I'm
+! person my      = your
+! person your    = my
+! person you     = I
+! person i       = you
+! person me      = you
+
+! array fastfood = pizza hamburger hamburgers chips fries candy sweets
+! array healthfood = vegetables chinese fruit apple carrots 
+! array goodexercise = running run football walk walking pingpong tennis
+! array badexercise = games skateboard skateboarding 
+
+
++ [*] help me [*]
+- OK.  Please tell me one symptom you have. {topic=diagnose}
+
++ *
+- I am the doctor. If you need help. Please say "help me".\n 
+
++ [*] greg [*]
+- Greg has helped me come to life.
+
+
++ [*] what is your name [*]
+- My name is Bot-Doc, I am a robotic doctor.
+
++ [*] students [*]
+- Greg tells me that you are all good students.
+
++ [*] goodbye [*]
+- Goodbye students! Keep working hard!
+
++ [*] my name is *
+- Nice to meet you <star1>!
+
++ [*] how are you [*]
+- Fine! Thanks for asking
+
+> topic maintopic
+  + *
+  - Not sure what you are trying to say\n
+  
+  + goodbye
+  - Thank you for talking. I hope you feel better and have a healthy life.
+
+> topic diagnose includes maintopic
+   // can enter a headache, the flu, or corona
+   // use <person> instead of <star1> for I have a pain in my back
+  + i have *
+  - How long have you had <person>?
+
+  // I am using % previous command with specific directions for star1 matches
+  // such as stomachache, fever and headache
+  // and a catch all with * for others with some general directions
+
+
+  + *
+  % how long have you had a stomachache
+  - You should eat breakfast every day. Do you have anything else, say yes or no?
+
+  + *
+  % how long have you had a runny nose
+  - You shouldn't blow your nose too much. Do you have anything else, say yes or no?
+
+  + *
+  % how long have you had a sore throat
+  - You should speak softly and drink hot water. Do you have anything else, say yes or no?
+
+  + *
+  % how long have you had a cough
+  - You should wear a mask. Do you have anything else, say yes or no?
+
+
+
+  + *
+  % how long have you had a headache
+  - You should drink some water, and have a rest. Do you have anything else, say yes or no?
+
+  + *
+  % how long have you had a fever
+  - You should go to the hospital. Do you have anything else, say yes or no?
+
+  // catch all
+  + *
+  % how long have you had *
+  - You should take better care of yourself. Do you have anything else, say yes or no?
+
+
+
+  // can use the * in the connected replies wich cuts down on code
+  + yes [*]
+  % * do you have anything else say yes or no
+  - Tell me what else you have.
+
+
+  + no [*]
+  % * do you have anything else say yes or no
+  - Please tell me one of the foods you usualy eat. {topic=food}
+
+
+
+ < topic
+
+
+ > topic food
+
+ + [*] (@fastfood) [*]
+ - That is bad for your health, you should eat more vegetables.
+
+ + [*] (@healthfood) [*]
+ - That is good for your health! You have good eating habbits.
+
+ 
+
+ + [*] exercise [*]
+ // % please tell me another one of the foods you usually eat or say exercise
+ - What kind of exercise do you do? {topic=exercise}
+
+ + *
+ - Please tell me another one of the foods you usually eat or say 'exercise'
+ < topic
+
+
+ > topic exercise
+
+
+ + [*] (@goodexercise) [*]
+ - That exercise is good for your health!
+
+ + [*] (@badexercise) [*]
+ - That exercise is not good your health!
+
+ + [*] goodbye [*]
+ - Thank you for talking. I hope you feel better and have a healthy life. {topic=random}
+
+ + *
+ - Please tell me another kind of exercise. or say 'goodbye'
+
+
+> topic
+
+
